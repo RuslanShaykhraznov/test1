@@ -23,17 +23,15 @@ public class JerseyResourceTest {
 
     /**
      * Test of getHTML method, of class JerseyResource.
-     
+     */
     @org.junit.Test
     public void testGetHTML() throws Exception {
         System.out.println("getHTML");
-        String subject = "";
+        String subject = "тест_тест_тест";
         JerseyResource instance = new JerseyResource();
-        String expResult = "";
+        String expResult = "No subjects found";
         String result = instance.getHTML(subject);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }*/
+    }
     
 }

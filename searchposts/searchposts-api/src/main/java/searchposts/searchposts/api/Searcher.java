@@ -47,9 +47,19 @@ public class Searcher {
     }
 
     private String convertToHtml(String baseData) {
-        String result = "<table border=\"1\">";
-        JSONObject obj = new JSONObject(baseData);
+        
+        if (baseData == "" || baseData == null)
+            return "Empty result";
+        
+        JSONObject obj = new JSONObject(baseData);        
+        if (!obj.has("items"))
+            return "Wrong request";    
+        
         JSONArray arr = obj.getJSONArray("items");
+        if (arr.length() == 0)
+            return "No subjects found";
+        
+        String result = "<table border=\"1\">";
         for (int i = 0; i < arr.length(); i++) {
             Date creationDate = new Date(arr.getJSONObject(i).getLong("creation_date"));
             String color = arr.getJSONObject(i).getBoolean("is_answered") == true ? "green" : "red";
