@@ -5,7 +5,9 @@
  */
 package searchposts.searchposts.api;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.ws.rs.WebApplicationException;
 import org.apache.http.Header;
@@ -59,9 +61,11 @@ public class Searcher {
         if (arr.length() == 0)
             return "No subjects found";
         
-        String result = "<table border=\"1\">";
+        String result = "<table border=\"1\"><tr><th>Created</th><th>Post</th><th>Author</th></tr>";
         for (int i = 0; i < arr.length(); i++) {
-            Date creationDate = new Date(arr.getJSONObject(i).getLong("creation_date"));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(arr.getJSONObject(i).getLong("creation_date") * 1000);
+            Date creationDate = calendar.getTime();
             String color = arr.getJSONObject(i).getBoolean("is_answered") == true ? "green" : "red";
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
             result += String.format("<tr bgcolor=\"%s\"><td>%s</td><td><a href=\"%s\">%s</a></td><td>%s</td></tr>\n",
